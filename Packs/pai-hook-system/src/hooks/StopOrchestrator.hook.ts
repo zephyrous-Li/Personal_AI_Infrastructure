@@ -54,10 +54,11 @@
  */
 
 import { parseTranscript } from '../skills/CORE/Tools/TranscriptParser';
-import { handleVoice } from './handlers/voice';
-import { handleCapture } from './handlers/capture';
-import { handleTabState } from './handlers/tab-state';
+import { handleVoice } from './handlers/VoiceNotification';
+import { handleCapture } from './handlers/ResponseCapture';
+import { handleTabState } from './handlers/TabState';
 import { handleSystemIntegrity } from './handlers/SystemIntegrity';
+import { handleTodoEnforcement } from './handlers/TodoEnforcement';
 
 interface HookInput {
   session_id: string;
@@ -113,11 +114,12 @@ async function main() {
     handleCapture(parsed, hookInput),
     handleTabState(parsed),
     handleSystemIntegrity(parsed, hookInput),
+    handleTodoEnforcement(parsed, hookInput),
   ]);
 
   // Log any failures
   results.forEach((result, index) => {
-    const handlerNames = ['Voice', 'Capture', 'TabState', 'SystemIntegrity'];
+    const handlerNames = ['Voice', 'Capture', 'TabState', 'SystemIntegrity', 'TodoEnforcement'];
     if (result.status === 'rejected') {
       console.error(`[StopOrchestrator] ${handlerNames[index]} handler failed:`, result.reason);
     }

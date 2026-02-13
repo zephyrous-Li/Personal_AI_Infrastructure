@@ -234,11 +234,12 @@ PAI_DIR="${PAI_DIR:-$HOME/.claude}"
 cp "$PACK_DIR/src/hooks/"*.hook.ts "$PAI_DIR/hooks/"
 ```
 
-**Hooks included (15 total):**
+**Hooks included (16 total):**
 - `SecurityValidator.hook.ts` - PreToolUse: Block dangerous commands
 - `LoadContext.hook.ts` - SessionStart: Load CORE skill context
 - `StartupGreeting.hook.ts` - SessionStart: Voice greeting
 - `CheckVersion.hook.ts` - SessionStart: Version compatibility
+- `TodoRecovery.hook.ts` - SessionStart: Todo recovery prompt
 - `UpdateTabTitle.hook.ts` - UserPromptSubmit: Tab automation
 - `SetQuestionTab.hook.ts` - UserPromptSubmit: Question tracking
 - `ExplicitRatingCapture.hook.ts` - UserPromptSubmit: Rating capture
@@ -250,6 +251,8 @@ cp "$PACK_DIR/src/hooks/"*.hook.ts "$PAI_DIR/hooks/"
 - `WorkCompletionLearning.hook.ts` - Stop: Learning capture
 - `ImplicitSentimentCapture.hook.ts` - Stop: Sentiment analysis
 - `AgentOutputCapture.hook.ts` - SubagentStop: Agent output routing
+- `TodoEnforcer.hook.ts` - Stop: Todo enforcement and state saving
+- `TodoRecovery.hook.ts` - SessionStart: Todo recovery and prompt injection
 
 **Mark todo as completed.**
 
@@ -291,11 +294,12 @@ PAI_DIR="${PAI_DIR:-$HOME/.claude}"
 cp "$PACK_DIR/src/hooks/handlers/"*.ts "$PAI_DIR/hooks/handlers/"
 ```
 
-**Handlers included (4 total):**
-- `capture.ts` - Output capture coordination
-- `voice.ts` - Voice notification handling
-- `tab-state.ts` - Tab state management
+**Handlers included (5 total):**
+- `VoiceNotification.ts` - Voice notification handling
+- `ResponseCapture.ts` - Output capture coordination
+- `TabState.ts` - Tab state management
 - `SystemIntegrity.ts` - System integrity checks
+- `TodoEnforcement.ts` - Todo state management
 
 **Mark todo as completed.**
 
@@ -553,7 +557,7 @@ grep "UpdateTabTitle" ~/.claude/settings.json
 
 ## What's Included
 
-### Hooks (15 files)
+### Hooks (17 files)
 
 | File | Event | Purpose |
 |------|-------|---------|
