@@ -120,7 +120,7 @@ function generateRecoveryPrompt(state: TodoState): string {
   const incomplete = state.incomplete_todos;
   const total = state.total_todos;
   const completed = state.completed_count;
-  const percentage = Math.round((completed / total) * 100);
+  const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
 
   let prompt = `⚠️ 检测到上次会话有未完成任务\n\n`;
   prompt += `上次会话: ${new Date(state.timestamp).toLocaleString('zh-CN')}\n`;
